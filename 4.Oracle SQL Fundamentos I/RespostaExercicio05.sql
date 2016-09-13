@@ -19,7 +19,7 @@ WHERE upper(c.NOME) like '%A%' ;
 -- Escreva uma consulta para exibir o nome do cliente, id do contrato 
 -- e total, para todos os contratos que não possuem desconto 
 -- (NULO ou ZERO). 
-SELECT c.NOME, ct.ID, ct.TOTAL --, ct.DESCONTO
+SELECT c.NOME, ct.ID, ct.TOTAL , ct.DESCONTO
 FROM TCLIENTES c
   JOIN TCONTRATOS ct
     ON (c.ID = ct.TCLIENTES_ID)
@@ -33,7 +33,8 @@ FROM TDESCONTOS d, TCLIENTES c
   JOIN TCONTRATOS ct
     ON (c.ID = ct.TCLIENTES_ID)
 WHERE nvl(ct.DESCONTO, 0) BETWEEN d.BASE_INFERIOR
-                              AND d.BASE_SUPERIOR; 
+                              AND d.BASE_SUPERIOR
+ORDER BY d.CLASSE; 
 
 -- Mostre o id, o código e a data de criação do curso e o id, 
 -- o código e a data de criação do seu curso pre_requisito 
@@ -43,4 +44,5 @@ FROM TCURSOS c
   JOIN TCURSOS p
     ON (c.PRE_REQUISITO = p.ID)
 WHERE c.PRE_REQUISITO is not null
+AND c.COD_TRG != p.COD_TRG
 ORDER BY 2;
