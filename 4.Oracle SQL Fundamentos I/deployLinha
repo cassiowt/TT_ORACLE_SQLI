@@ -1,0 +1,3 @@
+clean install deploy:deploy-file -DgroupId=agessecurity -DartifactId=agessecurity-core -Dversion=1.0.${BUILD_NUMBER} -DgeneratePom=false -Dpackaging=jar -DrepositoryId=nexus -Durl=http://10.32.223.8:8081/repository/maven-releases/ -Dfile=target/AgesSecurity-Core-1.0.null.jar
+
+clean install deploy:deploy-file -DgroupId=ideiasagesapi -DartifactId=ideiasagesapi-core -Dversion=1.0.beta -DgeneratePom=false -Dpackaging=jar -DrepositoryId=nexus -Durl=http://10.32.223.8:8081/repository/maven-releases/ -Dfile=target/ideiasApi-0.0.1-Beta.jar
