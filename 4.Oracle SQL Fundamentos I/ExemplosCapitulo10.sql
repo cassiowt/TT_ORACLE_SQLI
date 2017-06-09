@@ -19,7 +19,11 @@ SELECT * FROM   tcontratos WHERE  id = 1021;
 INSERT INTO tcontratos
 VALUES (1022,TO_DATE('16/01/2009','DD/MM/YYYY'),'A',200,100,1000);
 
-SELECT * FROM   tcontratos WHERE  id = 1022;
+INSERT INTO tcontratos
+VALUES (1024,TO_DATE('16/16/2009','MM/DD/YYYY'),'A',200,100,1000);
+
+
+SELECT * FROM   tcontratos WHERE  id = 1023;
 
 -- parametros
 INSERT INTO tdescontos(classe, base_inferior, base_superior)
@@ -30,8 +34,8 @@ CREATE TABLE clientes_sp AS  SELECT * FROM tclientes where id = 100;
 
 INSERT INTO clientes_sp (id, nome, dt_nascimento, endereco, cidade, estado, cep, telefone, comentarios)
   SELECT id, nome, dt_nascimento, endereco, cidade, estado, cep, telefone, comentarios
-    FROM tclientes
-   WHERE estado = 'SP';
+    FROM amaral.tclientes
+   WHERE estado = 'RS';
 
 SELECT * FROM clientes_sp;
 
@@ -40,12 +44,15 @@ SELECT * FROM clientes_sp;
 -- simples
 SELECT * FROM tcontratos  WHERE id = 1000;
 UPDATE	tcontratos SET	desconto = total * 0.7 WHERE id = 1000;
--0-UPDATE	tcontratos SET	desconto = total * 0.5 
+
+UPDATE	tcontratos SET	desconto = total * 0.5 
 
 -- com SELECT 
 drop table media_contratos_clientes;
 CREATE TABLE media_contratos_clientes AS  
- SELECT  tclientes_id, max(total) total, max(desconto) desconto FROM tcontratos group by tclientes_id;
+ SELECT  tclientes_id, max(total) total, max(desconto) desconto
+   FROM tcontratos 
+  group by tclientes_id;
 
 UPDATE media_contratos_clientes me
 SET    me.total = (SELECT AVG(co1.total)
@@ -58,8 +65,29 @@ SET    me.total = (SELECT AVG(co1.total)
 SELECT * FROM media_contratos_clientes;
 
 
+DELETE FROM tdescontos WHERE CLASSE = 'F';
 
 
+
+DELETE FROM media_contratos_clientes me
+WHERE  me.total >0;
+
+ROLLBACK;
+SELECT * FROM tcursos WHERE  id = 50;
+
+UPDATE tcursos 
+SET    preco = 2000
+WHERE  id = 50;
+
+SAVEPOINT ok;
+
+UPDATE tcursos
+SET carga_horaria = 30
+WHERE  id = 50;
+
+ROLLBACK TO SAVEPOINT ok;
+
+COMMIT;
 
 
 
