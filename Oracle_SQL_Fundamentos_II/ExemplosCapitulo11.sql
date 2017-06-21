@@ -1,17 +1,11 @@
 CREATE OR REPLACE PACKAGE pck_cursos
 IS
   gDesconto tcontratos.desconto%TYPE;
-
   PROCEDURE atualiza_preco_cursos;
-  
   PROCEDURE aumenta_porcentagem_curso(pPorcentagem IN NUMBER DEFAULT 10);
-
   PROCEDURE aumenta_preco(pId IN tcursos.id%TYPE);
-
   FUNCTION consulta_preco(pId IN tcursos.id%TYPE) RETURN NUMBER;
-
   FUNCTION consulta_preco_dois(pId IN tcursos.id%TYPE) RETURN NUMBER;
-   
 END pck_cursos;
 /
 
@@ -71,8 +65,6 @@ IS
       WHERE  id = pId;
       RETURN(vPreco);
    END consulta_preco_dois;
-   
-
 BEGIN
    SELECT AVG(preco)*.25
    INTO   gDesconto
@@ -117,3 +109,10 @@ EXCEPTION
 END;
 /
 
+select PCK_CURSOS.CONSULTA_PRECO(1) form ;
+
+exec PCK_CURSOS.AUMENTA_PRECO(1);
+exec AUMENTA_PRECO(1,20);
+
+
+rollback;
