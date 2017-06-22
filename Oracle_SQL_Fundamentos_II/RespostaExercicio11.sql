@@ -96,7 +96,7 @@ IS
     SELECT 1
       INTO   vvar
       FROM   tclientes
-     WHERE  id = pId;
+     WHERE  id  pId;
  
     RETURN( TRUE );
 
@@ -106,3 +106,29 @@ IS
   END;
  END pck_cliente;
  /
+ 
+---- Uso da pck_cliente
+SET SERVEROUTPUT ON;
+DECLARE
+  vId       tclientes.id%TYPE := 252;
+  vNome     tclientes.nome%TYPE;
+  vEndereco tclientes.endereco%TYPE;
+  vCidade   tclientes.cidade%TYPE;
+  vEstado   tclientes.estado%TYPE;
+BEGIN
+  PCK_CLIENTE.INSERE_CLIENTE(vId ,'122222' ,'frei' ,'Porto Alegre','RS');
+  DBMS_OUTPUT.PUT('<< Cliente Inserido>>');
+  
+  PCK_CLIENTE.EXIBE_CLIENTE(vId, vNome, vEndereco, vCidade, vEstado);
+  DBMS_OUTPUT.PUT('<< Informações do cliente >>');
+  DBMS_OUTPUT.PUT('Nome: ' || vNome);
+  DBMS_OUTPUT.PUT('Endereço:' || vEndereco);
+  DBMS_OUTPUT.PUT('Cidade:' || vCidade);
+  DBMS_OUTPUT.PUT('Estado:' || vEstado);
+  
+--  PCK_CLIENTE.REMOVE_CLIENTE(vId);
+  DBMS_OUTPUT.PUT('Removido cliente >> ' || vNome);
+END;
+/
+
+ 
