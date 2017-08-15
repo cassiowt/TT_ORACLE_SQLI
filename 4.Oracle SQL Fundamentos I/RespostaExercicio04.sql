@@ -1,41 +1,41 @@
 --Escreva uma consulta para exibir a data atual no
--- formato ‘DD/MM/YYYY HH24:MI:SS’. Coloque o alias de coluna como “Data”. 
+-- formato â€˜DD/MM/YYYY HH24:MI:SSâ€™. Coloque o alias de coluna como â€œDataâ€. 
 SELECT to_char(sysdate, 'DD/MM/YYYY HH24:MI:SS') FROM dual;
 
---Mostre o id do curso, o código Target (cod_trg), o preço e o preço 
+--Mostre o id do curso, o cÃ³digo Target (cod_trg), o preÃ§o e o preÃ§o 
 --com um aumento de 15%. Selecione somente os cursos que possuam o 
---número 1 em qualquer parte do id. 
---Coloque o alias da coluna como “Novo Preço”.   
+--nÃºmero 1 em qualquer parte do id. 
+--Coloque o alias da coluna como â€œNovo PreÃ§oâ€.   
 SELECT cr.id
 ,      cr.COD_TRG
 ,      cr.PRECO
-,      cr.PRECO * 1.15 as "Novo Preço"
+,      cr.PRECO * 1.15 as "Novo PreÃ§o"
 FROM TCURSOS cr
 where cr.ID like '%1%';
 
 --Altere a consulta anterior para adicionar uma nova coluna que subtraia 
---o preço antigo do novo preço. Coloque o alias da coluna como “Aumento”. 
+--o  novo preÃ§o do preÃ§o antigo. Coloque o alias da coluna como â€œAumentoâ€. 
 SELECT cr.id
 ,      cr.COD_TRG
 ,      cr.PRECO
-,      cr.PRECO * 1.15 as "Novo Preço"
+,      cr.PRECO * 1.15 as "Novo PreÃ§o"
 ,     (cr.PRECO * 1.15) - cr.PRECO "Aumento"
 FROM TCURSOS cr
 where cr.ID like '%1%';
 
---Mostre o nome de cada cliente e calcule o número de meses entre a 
+--Mostre o nome de cada cliente e calcule o nÃºmero de meses entre a 
 --data atual e a data de nascimento. Coloque o alias da coluna 
---como “Meses de Vida”. Ordene o resultado pelo número de meses. 
---Arredonde o número de meses para o número inteiro mais próximo. 
+--como â€œMeses de Vidaâ€. Ordene o resultado pelo nÃºmero de meses. 
+--Arredonde o nÃºmero de meses para o nÃºmero inteiro mais prÃ³ximo. 
 SELECT c.NOME
 ,      round((sysdate-c.DT_NASCIMENTO)/30)  "Meses de vida"
 ,      round(MONTHS_BETWEEN(sysdate,c.DT_NASCIMENTO)) "Meses de vida II"
 FROM TCLIENTES c
 order by 2;
 
---Crie uma consulta para exibir o código Target e o preço de todos 
---os cursos. Formate o preço para exibir como R$1.000,00. 
---Coloque o alias da coluna como “Valor Curso”.  
+--Crie uma consulta para exibir o cÃ³digo Target e o preÃ§o de todos 
+--os cursos. Formate o preÃ§o para exibir como R$1.000,00. 
+--Coloque o alias da coluna como â€œValor Cursoâ€.  
 SELECT cr.COD_TRG
 ,      to_char(cr.PRECO,'L99G999D00') "Valor do Curso"
 FROM TCURSOS cr;
