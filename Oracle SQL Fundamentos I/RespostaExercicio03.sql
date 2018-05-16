@@ -5,7 +5,7 @@ com o total superior a 10000.
 */
  SELECT ct.id, ct.dt_compra, ct.total
  FROM TCONTRATOS ct
- WHERE ct.total > 1000
+ WHERE ct.total > 10000
  order by 3;
 
 /*
@@ -30,8 +30,9 @@ desconto maior do que zero. Apresente o resultado em ordem crescente de data de 
  SELECT ct.id, ct.dt_compra, ct.DESCONTO, ct.TOTAL
   FROM tcontratos ct
   WHERE ct.TOTAL not BETWEEN 2000 and 5000
- -- AND ct.desconto > 0;
- AND nvl(ct.desconto,0) > 0;
+--- AND ct.desconto > 0;
+ AND nvl(ct.desconto,0) > 0
+ ORDER BY ct.dt_compra;
 /*
 6. Mostre o nome, a cidade e o estado de todos os clientes que possuem estado 
 igual a 'RS' ou 'SP' em ordem alfabética.
